@@ -1,27 +1,35 @@
 package main.java.bg.uni.plovdiv.fmi.exam.compiler.grammar.concrete;
 
+import main.java.bg.uni.plovdiv.fmi.exam.compiler.enums.SpecialSymbol;
 import main.java.bg.uni.plovdiv.fmi.exam.compiler.grammar.RuleContext;
 import main.java.bg.uni.plovdiv.fmi.exam.compiler.visitor.Visitor;
 
-import java.util.List;
-
 public class BitwiseAndExpressionContext extends RuleContext {
 
-    private final List<AdditiveExpressionContext> additiveExpressions;
+    private final AdditiveExpressionContext firstOperand;
+    private AdditiveExpressionContext secondOperand;
+    private SpecialSymbol operator;
 
-    public BitwiseAndExpressionContext(List<AdditiveExpressionContext> additiveExpressions) {
-        this.additiveExpressions = additiveExpressions;
-
-        for (var ae : additiveExpressions)
-            this.addChild(ae);
+    public BitwiseAndExpressionContext(AdditiveExpressionContext firstOperand) {
+        this.firstOperand = firstOperand;
     }
 
-    public List<AdditiveExpressionContext> getAdditiveExpressions() {
-        return additiveExpressions;
+    public BitwiseAndExpressionContext(AdditiveExpressionContext firstOperand, AdditiveExpressionContext secondOperand, SpecialSymbol operator) {
+        this.firstOperand = firstOperand;
+        this.secondOperand = secondOperand;
+        this.operator = operator;
     }
 
-    public AdditiveExpressionContext getAdditiveExpression(int i) {
-        return additiveExpressions.get(i);
+    public AdditiveExpressionContext getFirstOperand() {
+        return firstOperand;
+    }
+
+    public AdditiveExpressionContext getSecondOperand() {
+        return secondOperand;
+    }
+
+    public SpecialSymbol getOperator() {
+        return operator;
     }
 
     @Override

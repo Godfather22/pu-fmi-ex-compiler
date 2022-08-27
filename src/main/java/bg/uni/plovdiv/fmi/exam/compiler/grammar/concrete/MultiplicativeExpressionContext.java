@@ -1,27 +1,35 @@
 package main.java.bg.uni.plovdiv.fmi.exam.compiler.grammar.concrete;
 
+import main.java.bg.uni.plovdiv.fmi.exam.compiler.enums.SpecialSymbol;
 import main.java.bg.uni.plovdiv.fmi.exam.compiler.grammar.RuleContext;
 import main.java.bg.uni.plovdiv.fmi.exam.compiler.visitor.Visitor;
 
-import java.util.List;
-
 public class MultiplicativeExpressionContext extends RuleContext {
 
-    private final List<PrimaryExpressionContext> primaryExpressions;
+    private final PrimaryExpressionContext firstOperand;
+    private PrimaryExpressionContext secondOperand;
+    private SpecialSymbol operator;
 
-    public MultiplicativeExpressionContext(List<PrimaryExpressionContext> primaryExpressions) {
-        this.primaryExpressions = primaryExpressions;
-
-        for (var pe : primaryExpressions)
-            this.addChild(pe);
+    public MultiplicativeExpressionContext(PrimaryExpressionContext firstOperand) {
+        this.firstOperand = firstOperand;
     }
 
-    public List<PrimaryExpressionContext> getPrimaryExpressions() {
-        return primaryExpressions;
+    public MultiplicativeExpressionContext(PrimaryExpressionContext firstOperand, PrimaryExpressionContext secondOperand, SpecialSymbol operator) {
+        this.firstOperand = firstOperand;
+        this.secondOperand = secondOperand;
+        this.operator = operator;
     }
 
-    public PrimaryExpressionContext getPrimaryExpression(int i) {
-        return primaryExpressions.get(i);
+    public PrimaryExpressionContext getFirstOperand() {
+        return firstOperand;
+    }
+
+    public PrimaryExpressionContext getSecondOperand() {
+        return secondOperand;
+    }
+
+    public SpecialSymbol getOperator() {
+        return operator;
     }
 
     @Override

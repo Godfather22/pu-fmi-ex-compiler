@@ -1,27 +1,42 @@
 package main.java.bg.uni.plovdiv.fmi.exam.compiler.grammar.concrete;
 
+import main.java.bg.uni.plovdiv.fmi.exam.compiler.enums.SpecialSymbol;
 import main.java.bg.uni.plovdiv.fmi.exam.compiler.grammar.RuleContext;
 import main.java.bg.uni.plovdiv.fmi.exam.compiler.visitor.Visitor;
 
-import java.util.List;
-
 public class ExpressionContext extends RuleContext {
 
-    private final List<BitwiseAndExpressionContext> bitwiseAndExpressions;
+    private final BitwiseAndExpressionContext firstOperand;
+    private BitwiseAndExpressionContext secondOperand;
+    private SpecialSymbol operator;
 
-    public ExpressionContext(List<BitwiseAndExpressionContext> bitwiseAndExpressions) {
-        this.bitwiseAndExpressions = bitwiseAndExpressions;
+    public ExpressionContext(BitwiseAndExpressionContext firstOperand) {
+        this.firstOperand = firstOperand;
 
-        for (var bae : bitwiseAndExpressions)
-            this.addChild(bae);
+        this.addChild(firstOperand);
     }
 
-    public List<BitwiseAndExpressionContext> getBitwiseAndExpressions() {
-        return bitwiseAndExpressions;
+    public ExpressionContext(BitwiseAndExpressionContext firstOperand,
+                             BitwiseAndExpressionContext secondOperand,
+                             SpecialSymbol operator) {
+        this.firstOperand = firstOperand;
+        this.secondOperand = secondOperand;
+        this.operator = operator;
+
+        this.addChild(firstOperand);
+        this.addChild(secondOperand);
     }
 
-    public BitwiseAndExpressionContext getBitwiseAndExpression(int i) {
-        return bitwiseAndExpressions.get(i);
+    public BitwiseAndExpressionContext getFirstOperand() {
+        return firstOperand;
+    }
+
+    public BitwiseAndExpressionContext getSecondOperand() {
+        return secondOperand;
+    }
+
+    public SpecialSymbol getOperator() {
+        return operator;
     }
 
     @Override
