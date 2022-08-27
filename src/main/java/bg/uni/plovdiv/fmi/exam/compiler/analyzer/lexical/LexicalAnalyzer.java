@@ -18,6 +18,10 @@ public class LexicalAnalyzer {
         this.codeLength = code.length();
     }
 
+    public Token getCurrentToken() {
+        return currentToken;
+    }
+
     /**
      *
      * Присвоява на currentToken следващият валиден Token, ако има такъв.
