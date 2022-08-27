@@ -39,12 +39,12 @@ public class RuleContext implements ParseTree {
 
     @Override
     public ParseTree getChild(int i) {
-        return null;
+        return this.children.get(i);
     }
 
     @Override
     public int getChildCount() {
-        return 0;
+        return children != null ? children.size() : 0;
     }
 
     @Override
