@@ -1,5 +1,7 @@
 package main.java.bg.uni.plovdiv.fmi.exam.compiler.grammar.concrete;
 
+import main.java.bg.uni.plovdiv.fmi.exam.compiler.enums.SpecialSymbol;
+import main.java.bg.uni.plovdiv.fmi.exam.compiler.exception.SemanticAnalyzerException;
 import main.java.bg.uni.plovdiv.fmi.exam.compiler.grammar.RuleContext;
 import main.java.bg.uni.plovdiv.fmi.exam.compiler.visitor.Visitor;
 
@@ -13,13 +15,27 @@ public class PrimaryExpressionContext extends RuleContext {
     private NumberContext numberContext;
     private KeywordContext keywordContext;
 
-    public PrimaryExpressionContext(IdentContext identContext, ExpressionContext expressionContext) {
+    private SpecialSymbol binaryOperator, unaryPrefixedOperator, unaryPostfixedOperator, openingBrace, closingBrace;
+
+    public PrimaryExpressionContext(IdentContext identContext, ExpressionContext expressionContext, SpecialSymbol binaryOperator) {
         this.identContext = identContext;
         this.expressionContext = expressionContext;
+        this.binaryOperator = binaryOperator;
     }
 
-    public PrimaryExpressionContext(PrimaryExpressionContext primaryExpressionContext) {
+    public PrimaryExpressionContext(SpecialSymbol unaryPrefixedOperator, PrimaryExpressionContext primaryExpressionContext) {
         this.primaryExpressionContext = primaryExpressionContext;
+        this.unaryPrefixedOperator = unaryPrefixedOperator;
+    }
+
+    public PrimaryExpressionContext(SpecialSymbol unaryPrefixedOperator, IdentContext identContext) {
+        this.identContext = identContext;
+        this.unaryPrefixedOperator = unaryPrefixedOperator;
+    }
+
+    public PrimaryExpressionContext(IdentContext identContext, SpecialSymbol unaryPostfixedOperator) {
+        this.identContext = identContext;
+        this.unaryPostfixedOperator = unaryPostfixedOperator;
     }
 
     public PrimaryExpressionContext(IdentContext identContext) {
@@ -34,8 +50,10 @@ public class PrimaryExpressionContext extends RuleContext {
         this.keywordContext = keywordContext;
     }
 
-    public PrimaryExpressionContext(ExpressionContext expressionContext) {
+    public PrimaryExpressionContext(SpecialSymbol openingBrace, ExpressionContext expressionContext, SpecialSymbol closingBrace) {
         this.expressionContext = expressionContext;
+        this.openingBrace = openingBrace;
+        this.closingBrace = closingBrace;
     }
 
     public IdentContext getIdentContext() {
@@ -58,8 +76,28 @@ public class PrimaryExpressionContext extends RuleContext {
         return keywordContext;
     }
 
+    public SpecialSymbol getBinaryOperator() {
+        return binaryOperator;
+    }
+
+    public SpecialSymbol getUnaryPrefixedOperator() {
+        return unaryPrefixedOperator;
+    }
+
+    public SpecialSymbol getUnaryPostfixedOperator() {
+        return unaryPostfixedOperator;
+    }
+
+    public SpecialSymbol getOpeningBrace() {
+        return openingBrace;
+    }
+
+    public SpecialSymbol getClosingBrace() {
+        return closingBrace;
+    }
+
     @Override
-    public <T> T accept(Visitor<? extends T> visitor) {
+    public <T> T accept(Visitor<? extends T> visitor) throws SemanticAnalyzerException {
         return visitor.visitPrimaryExpression(this);
     }
 }

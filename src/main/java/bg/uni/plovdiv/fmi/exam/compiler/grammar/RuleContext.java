@@ -1,5 +1,6 @@
 package main.java.bg.uni.plovdiv.fmi.exam.compiler.grammar;
 
+import main.java.bg.uni.plovdiv.fmi.exam.compiler.exception.SemanticAnalyzerException;
 import main.java.bg.uni.plovdiv.fmi.exam.compiler.visitor.Visitor;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class RuleContext implements ParseTree {
     }
 
     @Override
-    public <T> T accept(Visitor<? extends T> visitor) {
+    public <T> T accept(Visitor<? extends T> visitor) throws SemanticAnalyzerException {
         return null;
     }
 }

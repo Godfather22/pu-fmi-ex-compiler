@@ -1,6 +1,7 @@
 package main.java.bg.uni.plovdiv.fmi.exam.compiler.grammar.concrete;
 
 import main.java.bg.uni.plovdiv.fmi.exam.compiler.enums.SpecialSymbol;
+import main.java.bg.uni.plovdiv.fmi.exam.compiler.exception.SemanticAnalyzerException;
 import main.java.bg.uni.plovdiv.fmi.exam.compiler.grammar.RuleContext;
 import main.java.bg.uni.plovdiv.fmi.exam.compiler.visitor.Visitor;
 
@@ -33,7 +34,7 @@ public class MultiplicativeExpressionContext extends RuleContext {
     }
 
     @Override
-    public <T> T accept(Visitor<? extends T> visitor) {
+    public <T> T accept(Visitor<? extends T> visitor) throws SemanticAnalyzerException {
         return visitor.visitMultiplicativeExpression(this);
     }
 }
