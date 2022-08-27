@@ -5,7 +5,7 @@ public interface ParseTree extends Visitable {
     void setParent(ParseTree parent);
     String getText();
     Object getPayload();
-    void addChild();
+    void addChild(ParseTree child);
     ParseTree getChild(int i);
     int getChildCount();
     String toStringTree();
