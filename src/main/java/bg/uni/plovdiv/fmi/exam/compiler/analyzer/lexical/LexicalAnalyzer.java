@@ -1,5 +1,6 @@
 package main.java.bg.uni.plovdiv.fmi.exam.compiler.analyzer.lexical;
 
+import main.java.bg.uni.plovdiv.fmi.exam.compiler.enums.TokenType;
 import main.java.bg.uni.plovdiv.fmi.exam.compiler.exception.LexicalAnalyzerException;
 
 import java.util.Arrays;
@@ -8,13 +9,12 @@ public class LexicalAnalyzer {
 
     private final String code;
     private final int codeLength;
-    private int index;
+    private static int index = 0;
     private Token currentToken;
     private Token previousToken;
 
     public LexicalAnalyzer(String code) {
         this.code = code;
-        this.index = 0;
         this.codeLength = code.length();
     }
 
@@ -37,10 +37,10 @@ public class LexicalAnalyzer {
             // главната функция на лексикалния анализатор;
             // проверява символите от азбуката на езика
             if (Character.isLetter(currChar)) {
-                // TODO letter case
+                currentToken = new ConcreteToken(TokenType.LETTER, currChar);
             }
             else if (Character.isDigit(currChar)) {
-                // TODO set currentToken to be a new Token of TokenType Digit
+                currentToken = new ConcreteToken(TokenType.DIGIT, currChar);
             }
             else if (characterIsWhitespace(currChar)) {
                 skipWS();
@@ -52,6 +52,10 @@ public class LexicalAnalyzer {
             return true;
         }
         return false;
+    }
+
+    public static int getIndex() {
+        return index;
     }
 
     /**

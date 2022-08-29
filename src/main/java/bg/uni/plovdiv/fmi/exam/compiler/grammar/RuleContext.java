@@ -6,7 +6,7 @@ import main.java.bg.uni.plovdiv.fmi.exam.compiler.visitor.Visitor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RuleContext implements ParseTree {
+public class RuleContext implements Context, ParseTree {
 
     public ParseTree parent;
     public List<ParseTree> children;
@@ -57,4 +57,5 @@ public class RuleContext implements ParseTree {
     public <T> T accept(Visitor<? extends T> visitor) throws SemanticAnalyzerException {
         return null;
     }
+
 }
